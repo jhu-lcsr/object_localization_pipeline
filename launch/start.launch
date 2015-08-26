@@ -1,0 +1,11 @@
+<launch>
+
+  <arg name="kinect" value="false"/>
+
+  <include if="$(arg kinect)" file="$(openni_launch)/launch/openni.launch"/>
+
+  <group ns="semantic_segmentation">
+    <include file="$(find semantic_segmentation)/launch/segmentation_demo.launch"/>
+  </group>
+
+</launch>
