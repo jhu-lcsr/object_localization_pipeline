@@ -8,4 +8,8 @@
     <include file="$(find semantic_segmentation)/launch/segmentation_demo.launch"/>
   </group>
 
+  <group ns="greedy_objrec_ransac">
+    <include file="$(find greedy_objrec_ransac)/launch/demo.launch"/>
+  </group>
+
 </launch>
