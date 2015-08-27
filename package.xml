@@ -40,10 +40,10 @@
   <!-- Use test_depend for packages you need only for testing: -->
   <!--   <test_depend>gtest</test_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>greedy_objrec_ransac/</build_depend>
+  <build_depend>greedy_objrec_ransac</build_depend>
   <build_depend>semantic_segmentation</build_depend>
 
-  <run_depend>greedy_objrec_ransac/</run_depend>
+  <run_depend>greedy_objrec_ransac</run_depend>
   <run_depend>semantic_segmentation</run_depend>
 
 

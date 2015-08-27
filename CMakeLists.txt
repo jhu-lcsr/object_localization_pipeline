@@ -9,6 +9,9 @@ find_package(catkin REQUIRED COMPONENTS
   semantic_segmentation
 )
 
+find_library(ObjRecRANSAC_LIBRARY ObjRecRANSAC)
+
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -102,7 +105,7 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES object_localization_pipeline
   CATKIN_DEPENDS greedy_objrec_ransac semantic_segmentation
-#  DEPENDS system_lib
+  DEPENDS ObjRecRANSAC
 )
 
 ###########
