@@ -13,7 +13,9 @@
 ros::Publisher pub;
 ros::Subscriber sub;
 
-void callback(sensor_msgs::PointCloud2 &msg) {
+using namespace pcl_conversions;
+
+void callback(const sensor_msgs::PointCloud2 &pc) {
 
   pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGBA>());
   pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud_filtered(new pcl::PointCloud<pcl::PointXYZRGBA>());
@@ -23,7 +25,7 @@ void callback(sensor_msgs::PointCloud2 &msg) {
 
   pcl::fromPCLPointCloud2(pcl_pc, *cloud);
 
-  if( scene_pc->empty() == true ) {
+  if( cloud->empty() == true ) {
     ROS_ERROR("Recieved empty point cloud message!");
     return;
   }
@@ -49,18 +51,18 @@ void callback(sensor_msgs::PointCloud2 &msg) {
                         << cloud_filtered->points[i].z << std::endl;
 
     sensor_msgs::PointCloud2 output_msg;
-    toROSMsg(*clout_filtered,output_msg);
+    pcl::toROSMsg(*cloud_filtered,output_msg);
     output_msg.header.frame_id = pc.header.frame_id;
     pub.publish(output_msg);
 }
 
 int main (int argc, char** argv) {
 
-  ros::init("pc_filter_node",argc,argv);
+  ros::init(argc,argv,"pc_filter_node");
   ros::NodeHandle nh;
 
   sub = nh.subscribe("points_in",1,callback);
-  pub = nh.advertise<sensor_msgs::PointCloud2>("points_out");
+  pub = nh.advertise<sensor_msgs::PointCloud2>("points_out",1000);
 
   ros::spin();
 
