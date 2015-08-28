@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find object_localization_pipeline)">
+    <arg name="camera" value="camera_2"/>
+  </include>
+</launch>
