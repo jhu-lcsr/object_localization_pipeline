@@ -30,11 +30,11 @@ void callback(const sensor_msgs::PointCloud2 &pc) {
     return;
   }
 
-  std::cerr << "Cloud before filtering: " << std::endl;
-  for (size_t i = 0; i < cloud->points.size (); ++i)
-    std::cerr << "    " << cloud->points[i].x << " " 
-                        << cloud->points[i].y << " " 
-                        << cloud->points[i].z << std::endl;
+  std::cerr << "Cloud before filtering: " << cloud->points.size() << std::endl;
+  //for (size_t i = 0; i < cloud->points.size (); ++i)
+  //  std::cerr << "    " << cloud->points[i].x << " " 
+  //    << cloud->points[i].y << " " 
+  //    << cloud->points[i].z << std::endl;
 
   // Create the filtering object
   pcl::PassThrough<pcl::PointXYZRGBA> pass;
@@ -44,16 +44,16 @@ void callback(const sensor_msgs::PointCloud2 &pc) {
   //pass.setFilterLimitsNegative (true);
   pass.filter (*cloud_filtered);
 
-  std::cerr << "Cloud after filtering: " << std::endl;
-  for (size_t i = 0; i < cloud_filtered->points.size (); ++i)
-    std::cerr << "    " << cloud_filtered->points[i].x << " " 
-                        << cloud_filtered->points[i].y << " " 
-                        << cloud_filtered->points[i].z << std::endl;
+  std::cerr << "Cloud after filtering: " << cloud_filtered->points.size() << std::endl;
+  //for (size_t i = 0; i < cloud_filtered->points.size (); ++i)
+  //  std::cerr << "    " << cloud_filtered->points[i].x << " " 
+  //    << cloud_filtered->points[i].y << " " 
+  //    << cloud_filtered->points[i].z << std::endl;
 
-    sensor_msgs::PointCloud2 output_msg;
-    pcl::toROSMsg(*cloud_filtered,output_msg);
-    output_msg.header.frame_id = pc.header.frame_id;
-    pub.publish(output_msg);
+  sensor_msgs::PointCloud2 output_msg;
+  pcl::toROSMsg(*cloud_filtered,output_msg);
+  output_msg.header.frame_id = pc.header.frame_id;
+  pub.publish(output_msg);
 }
 
 int main (int argc, char** argv) {
