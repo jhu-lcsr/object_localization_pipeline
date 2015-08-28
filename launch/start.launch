@@ -1,13 +1,14 @@
 <launch>
 
-  <arg name="kinect" value="false"/>
-  <arg name="camera" value="camera"/>
+  <arg name="kinect" default="false"/>
+  <arg name="camera" default="camera"/>
 
-  <include if="$(arg kinect)" file="$(openni_launch)/launch/openni.launch"/>
+  <include if="$(arg kinect)" file="$(find openni_launch)/launch/openni.launch"/>
 
   <group ns="semantic_segmentation">
-    <include file="$(find semantic_segmentation)/launch/segmentation_demo.launch"/>
-    <arg name="camera" value="$(arg camera)"/>
+    <include file="$(find semantic_segmentation)/launch/segmentation_demo.launch">
+      <arg name="camera" value="$(arg camera)"/>
+    </include>
   </group>
 
   <group ns="greedy_objrec_ransac">
