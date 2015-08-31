@@ -51,6 +51,7 @@
   <run_depend>pcl_ros</run_depend>
   <run_depend>pcl_conversions</run_depend>
   <run_depend>sensor_msgs</run_depend>
+  <run_depend>interactive_pcl</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
