@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="filter_node" type="filter_node" pkg="object_localization_pipeline" output="screen">
+    <remap from="points_in" to="/camera/depth_registered/points"/>
+  </node>
+</launch>
