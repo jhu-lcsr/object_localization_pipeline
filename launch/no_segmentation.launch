@@ -1,0 +1,18 @@
+<launch>
+
+  <arg name="kinect" default="false"/>
+  <arg name="camera" default="camera"/>
+
+  <include if="$(arg kinect)" file="$(find openni_launch)/launch/openni.launch"/>
+  <include file="$(find interactive_pcl)/pass_though.launch">
+    <arg name="root_topic" value="/$(arg camera)/depth_registered/points"/>
+  </include>
+
+  <group ns="greedy_objrec_ransac">
+    <node name="objrec_node" pkg="greedy_objrec_ransac" type="node" output="screen"
+      args="--link $(find greedy_objrec_ransac)/data/link_uniform --node $(find greedy_objrec_ransac)/data/node_uniform --m 4">
+      <remap from="points_in" to="/filter/1"/>
+    </node>
+  </group>
+
+</launch>
