@@ -1,0 +1,20 @@
+<launch>
+  <node pkg="objrec_ros_integration" type="objrec_node" name="objrec_node" output="screen">
+    <remap from="~/points" to="/filter/1"/>
+  </node>
+
+  <group ns="objrec_node">
+    <rosparam ns="models">
+      ['gbeam_link', 'gbeam_node']
+    </rosparam>
+    <group ns="model_uris">
+      <param name="gbeam_link" value="package://ascent_mk2/meshes/gbeam_link_50k.vtk"/>
+      <param name="gbeam_node" value="package://ascent_mk2/meshes/gbeam_node_50k.vtk"/>
+    </group>
+    <group ns="stl_uris">
+      <param name="gbeam_link" value="package://ascent_mk2/meshes/gbeam_link_5k.stl"/>
+      <param name="gbeam_node" value="package://ascent_mk2/meshes/gbeam_node_5k.stl"/>
+    </group>
+  </group>
+
+</launch>

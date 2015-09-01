@@ -5,28 +5,22 @@
 
   <include if="$(arg kinect)" file="$(find openni_launch)/launch/openni.launch"/>
 
-  <!--
-  <group ns="range">
-    <node name="range_filter" type="filter_node" pkg="object_localization_pipeline">
-      <remap from="points_in" to="/$(arg camera)/depth_registered/points"/>
-    </node>
-  </group>
-  -->
-
-  <include file="$(find interactive_pcl)/pass_though.launch">
-    <arg name="root_topic" value="/$(arg camera)/depth_registered/points"/>
-  </include>
-
-  <!--<group ns="semantic_segmentation">
+  <group ns="semantic_segmentation">
     <param name="dictionary_uri" value="package://semantic_segmentation/data/BB_new_dict"/>
     <param name="svm_model_uri" value="package://semantic_segmentation/data/SVM_Model/svm_model.model"/>
     <param name="dictionary_location" value="$(find semantic_segmentation)/data/BB_new_dict/"/>
     <param name="svm_model_location" value="$(find semantic_segmentation)/data/SVM_Model/"/>
 
     <node name="semantic_segmentation_node" pkg="semantic_segmentation" type="segmentation_node" output="screen">
-      <remap from="points_in" to="/filter/1"/>
+      <!--<remap from="points_in" to="/filter/1"/>-->
+      <remap from="points_in" to="/$(arg camera)/depth_registered/points"/>
     </node>
-  </group>-->
+  </group>
+
+  <include file="$(find interactive_pcl)/pass_though.launch">
+    <!--<arg name="root_topic" value="/$(arg camera)/depth_registered/points"/>-->
+    <arg name="root_topic" value="/semantic_segmentation/points_out"/>
+  </include>
 
   <group ns="greedy_objrec_ransac">
     <node name="objrec_node" pkg="greedy_objrec_ransac" type="node" output="screen"
