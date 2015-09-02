@@ -2,7 +2,7 @@
 
   <arg name="kinect" default="false"/>
   <arg name="camera" default="camera"/>
-  <arg name="frame" default="_rgb_optical_frame"/>
+  <arg name="frame" default="_link"/>
 
   <include if="$(arg kinect)" file="$(find openni_launch)/launch/openni.launch"/>
 
