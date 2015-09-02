@@ -2,10 +2,20 @@
 
   <arg name="kinect" default="false"/>
   <arg name="camera" default="camera"/>
+  <arg name="frame" default="_rgb_optical_frame"/>
 
   <include if="$(arg kinect)" file="$(find openni_launch)/launch/openni.launch"/>
+
+  <group ns="range">
+    <node name="filter_node" type="filter_node" pkg="object_localization_pipeline" output="screen">
+      <remap from="points_in" to="/$(arg camera)/depth_registered/points"/>
+    </node>
+  </group>
+
   <include file="$(find interactive_pcl)/pass_though.launch">
-    <arg name="root_topic" value="/$(arg camera)/depth_registered/points"/>
+    <!--<arg name="root_topic" value="/$(arg camera)/depth_registered/points"/>-->
+    <arg name="root_topic" value="/range/points_out"/>
+    <!--<arg name="frame_id" value="$(arg camera)($arg frame)"/>-->
   </include>
 
   <group ns="greedy_objrec_ransac">
